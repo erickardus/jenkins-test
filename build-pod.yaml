@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: docker
+    image: docker:19.03.5
+    imagePullPolicy: IfNotPresent
+    command:
+    - cat
+    tty: true
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: dockersock
+      mountPath: /var/run/docker.sock
+  nodeSelector:
+    jenkins: jenkins
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "jenkins"
+      effect: "NoSchedule"
+  - name: dockersock
+    hostPath:
+      path: /var/run/docker.sock
+
+
