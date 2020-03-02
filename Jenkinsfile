@@ -9,7 +9,7 @@ pipeline {
       steps {
         container('docker') {
           script {
-            sh "docker build --network=host  -t myimage:latest -f ."
+            sh "docker build --network=host  -t myimage:latest ."
           }
         }
       }
